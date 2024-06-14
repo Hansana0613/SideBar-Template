@@ -63,6 +63,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -250,7 +251,7 @@ public class MainMenu extends javax.swing.JFrame {
             jLabel19.setVisible(false);
             jLabel20.setVisible(false);
 
-            Thread combinedThread = new Thread() {
+            Thread shrinkingThread = new Thread() {
                 @Override
                 public void run() {
                     try {
@@ -288,13 +289,13 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             };
 
-            combinedThread.start();
+            shrinkingThread.start();
             x = 60;
         } else {
             jPanel2.show();
             jPanel2.setSize(x, 552);
 
-            Thread combinedThread = new Thread() {
+            Thread expandingThread = new Thread() {
                 @Override
                 public void run() {
                     try {
@@ -342,7 +343,7 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             };
 
-            combinedThread.start();
+            expandingThread.start();
             x = 210;
         }
     }//GEN-LAST:event_jLabel1MouseClicked
