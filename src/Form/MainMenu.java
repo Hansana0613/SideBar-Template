@@ -6,6 +6,7 @@ package Form;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -255,68 +256,104 @@ public class MainMenu extends javax.swing.JFrame {
 
     int x = 210;
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        if (x == 210) {
+          if (x == 210) {
             jPanel2.setSize(210, 552);
-            Thread th1 = new Thread() {
+            jLabel19.setVisible(false);
+            jLabel20.setVisible(false);
+
+            Thread combinedThread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        for (int i = 210; i >= 60; i--) {
+                        int sideBarPanelWidth = 210;
+                        int toggleLabelX = 167;
+                        int panel3X = 210;
+                        int panel3Width = 790;
+
+                        // Calculate the maximum number of iterations needed
+                        int maxIterations = Math.max(210 - 60, 167 - 10);
+
+                        for (int i = 0; i <= maxIterations; i++) {
+                            if (sideBarPanelWidth >= 60) {
+                                jPanel2.setSize(sideBarPanelWidth, 552);
+                                sideBarPanelWidth--;
+                            }
+
+                            if (toggleLabelX >= 10) {
+                                jLabel1.setLocation(toggleLabelX, 6);
+                                toggleLabelX--;
+                            }
+
+                            if (panel3X >= 60) {
+                                jPanel3.setLocation(panel3X, 73);
+                                jPanel3.setSize(panel3Width, 552);
+                                panel3X--;
+                                panel3Width++;
+                            }
+
                             Thread.sleep(2);
-                            jPanel2.setSize(i, 552);
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
             };
-            Thread th2 = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 167; i >= 10; i--) {
-                            Thread.sleep(2);
-                            jLabel1.setLocation(i, 6);
-                        }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e);
-                    }
-                }
-            };
-            th1.start();
-            th2.start();
+
+            combinedThread.start();
             x = 60;
         } else {
             jPanel2.show();
             jPanel2.setSize(x, 552);
-            Thread th3 = new Thread() {
+
+            Thread combinedThread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        for (int i = 60; i <= 210; i++) {
+                        int sideBarPanelWidth = 60;
+                        int toggleLabelX = 10;
+                        int panel3X = 60;
+                        int panel3Width = 940; // initial 790 + (210-60)
+
+                        // Calculate the maximum number of iterations needed
+                        int maxIterations = Math.max(210 - 60, 167 - 10);
+
+                        for (int i = 0; i <= maxIterations; i++) {
+                            if (sideBarPanelWidth <= 210) {
+                                jPanel2.setSize(sideBarPanelWidth, 552);
+                                sideBarPanelWidth++;
+                            }
+
+                            if (toggleLabelX <= 167) {
+                                jLabel1.setLocation(toggleLabelX, 6);
+                                toggleLabelX++;
+                            }
+
+                            if (panel3X <= 210) {
+                                jPanel3.setLocation(panel3X, 73);
+                                jPanel3.setSize(panel3Width, 552);
+                                panel3X++;
+                                panel3Width--;
+                            }
+
                             Thread.sleep(2);
-                            jPanel2.setSize(i, 552);
                         }
+
+                        // Perform the following actions after the loop is done
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                jLabel19.setVisible(true);
+                                jLabel20.setVisible(true);
+                            }
+                        });
+
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
             };
-            Thread th4 = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 10; i <= 167; i++) {
-                            Thread.sleep(2);
-                            jLabel1.setLocation(i, 6);
-                        }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e);
-                    }
-                }
-            };
-            th3.start();
-            th4.start();
+
+            combinedThread.start();
             x = 210;
         }
     }//GEN-LAST:event_jLabel1MouseClicked
